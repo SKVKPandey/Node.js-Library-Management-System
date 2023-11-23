@@ -1,0 +1,56 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Library Management System</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        /* Additional CSS styles */
+        body {
+            padding: 20px;
+        }
+        form {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1 class="mb-4">Library Management System</h1>
+   
+    <form id="bookForm" enctype="multipart/form-data">
+        <input type="text" class="form-control mb-2" name="title" placeholder="Title">
+        <input type="text" class="form-control mb-2" name="author" placeholder="Author">
+        <input type="text" class="form-control mb-2" name="genre" placeholder="Genre">
+        <input type="file" class="form-control mb-2" name="bookImage">
+        <input type="button" class="btn btn-primary" value="Add Book" onclick="addBook()">
+    </form>
+
+    <script>
+        function addBook() {
+            const form = document.getElementById('bookForm');
+            const formData = new FormData(form);
+
+            $.ajax({
+                type: 'POST',
+                url: 'http://localhost:3000/books',
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function(data) {
+                    // Handle success here if needed
+                    console.log('Book added successfully!');
+                    // Clear the form
+                    form.reset();
+                },
+                error: function(err) {
+                    // Handle errors here if needed
+                    console.error('Error adding book: ' + err);
+                }
+            });
+        }
+    </script>
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
